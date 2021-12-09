@@ -6,7 +6,7 @@
 /*   By: jcourtem <jcourtem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 09:30:10 by JEAN-SEBA         #+#    #+#             */
-/*   Updated: 2021/12/09 11:17:44 by jcourtem         ###   ########.fr       */
+/*   Updated: 2021/12/09 13:13:21 by jcourtem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void    get_line(char *save, char *line)
 {
     int nl_len;
 
-    if (!save)
+    if (!save || *save == '\0')
     {
         free (save);
         free (line);
