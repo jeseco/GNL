@@ -1,59 +1,51 @@
 #include "get_next_line.h"
 
-char    *clean_save(char *save, char *has_rtn)
+char    *clean_save(char *save, int i)
 {
-    char    *rtn_save;
 
-    rtn_save = malloc(sizeof(char *) * strlen(has_rtn));
-    memcpy(rtn_save, 1, has_rtn);
-    free (save);
-    return (rtn_save);
 }
 
-char    *get_line(char *save, char *has_rtn)
+char    *get_line(char *save)
 {
-    char    *line;
-    int     line_len;
-    int     i;
-
-    line_len = (strlen(save) - strlen(has_rtn) + 1);
-    line = malloc(sizeof(char *) * line_len);
-    i = 0;
-    while (save + i <= has_rtn)
+    if (!save || save == NULL || save[0] == "\0")
     {
-        line[i] = save[i];
-        i++;
-    }
-    line[i + 1] = "\0";
-    save = clean_save(save, has_rtn);
-    return (line)
-}
-
-void    read
-
-char    *get_next_line(int fd)
-{
-    int         bytes;
-    char        *has_rtn;   
-    char        *line;
-    char        *buffer;
-    static char *save;
-
-    if (!fd)
+        free (save);
         return (NULL);
+    }
+    
+}
+
+char    *get_save(int fd, char *save)
+{
+    int     bytes;
+    char    *buffer;
+
+    buffer = malloc(sizeof(char *) * BUFFER_SIZE + 1);
     bytes = 1;
-    while (bytes > 0 && !has_rtn)
+    while (bytes > 0)
     {
-        bytes = read(fd, buffer, BUFFRE_SIZE);
+        bytes = read(fd, buffer, BUFFER_SIZE);
         if (bytes == -1)
         {
             free (buffer);
             return (NULL);
         }
+        buffer[bytes] = '\0';
         save = ft_strjoin(save, buffer);
-        has_rtn = strchr(save);
     }
-    if (has_rtn)
-        line = get_line(save, has_rtn);
+    free (buffer);
+    return (save);
+}
+
+char    *get_next_line(int fd)
+{ 
+    char        *line;
+    static char *save;
+
+    if (!fd)
+        return (NULL);
+    if (!save)
+        save = get_save(fd, save);
+    line = get_line(save);
     return (line);
 }
