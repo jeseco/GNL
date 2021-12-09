@@ -6,7 +6,7 @@
 /*   By: jcourtem <jcourtem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 09:30:18 by JEAN-SEBA         #+#    #+#             */
-/*   Updated: 2021/12/09 10:13:21 by jcourtem         ###   ########.fr       */
+/*   Updated: 2021/12/09 11:45:23 by jcourtem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ size_t  ft_strlen(const char *s)
         int             len;
 
         len = 0;
-        while (*s++)
-                len++;
+        if (s)
+                while (*s++)
+                        len++;
         return (len);
 }
 
@@ -61,7 +62,7 @@ void    ft_strcat(char *dest, char *src)
     else if (!dest && src)
     {
         dest = malloc(sizeof(char *) * src_len);
-        ft_memmove(dest, src);
+        ft_memmove(dest, src, src_len);
         return ;
     }
     else if (dest && src)
