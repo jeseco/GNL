@@ -63,7 +63,7 @@ void    *ft_memmove(void *dest, const void *src, size_t n)
         return (dest);
 }
 
-void    *ft_strscat(char *s1, char *s2)
+void    ft_strscat(char *s1, char *s2)
 {
         char    *temp;
         int     rtn_size;
