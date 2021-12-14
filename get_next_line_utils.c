@@ -63,29 +63,17 @@ void    *ft_memmove(void *dest, const void *src, size_t n)
         return (dest);
 }
 
-char    *ft_strjoin(char *s1, char *s2)
+char    *ft_strscat(char *s1, char *s2)
 {
-        size_t  s1_len;
-        size_t  s2_len;
-        size_t  stot_len;
-        char    *rtn;
-
-        if (!s1)
-        {
-                s1_len = ft_strlen(s2);
-                s1 = malloc(sizeof(char *) * s1_len);
-                while (s1_len--)
-                        s1[s1_len] = s2[s1_len];
-                return (s1);
-        }
-        s1_len = ft_strlen((char *)s1);
-        s2_len = ft_strlen(s2);
-        stot_len = s1_len + s2_len + 1;
-        rtn = malloc(sizeof(char) * stot_len);
-        if (!rtn)
-                return (0);
-        ft_memmove(rtn, s1, s1_len);
-        ft_memmove(rtn + s1_len, s2, s2_len);
-        rtn[stot_len - 1] = '\0';
-        return (rtn);
+/*
+fait une variable temporaire nomme temp de type char *, 
+alloue lui de la memoire de la taille de s1 et s2 ensemble,
+copy la memoire de s1 dans temp,
+copy la memoire de s2 dans temp, depuis la dernier place allouer de s1
+si s1 exist, libere s1,le de 
+alloue lui de la memoire de la tails1 et s2 ensemble, 
+copy la memoire de temp dans s1,
+libere la memoire de temp, 
+retourne s1,
+*/
 }
