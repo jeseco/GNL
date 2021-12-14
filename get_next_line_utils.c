@@ -63,14 +63,13 @@ void    *ft_memmove(void *dest, const void *src, size_t n)
         return (dest);
 }
 
-char    *ft_strscat(char *s1, char *s2)
+void    *ft_strscat(char *s1, char *s2)
 {
         char    *temp;
         int     rtn_size;
 
         rtn_size = ft_strlen(s1) + ft_strlen(s2);
         temp = malloc(sizeof(char *) * rtn_size);
-        if (s1);
         ft_memcpy(temp, s1, ft_strlen(s1));
         ft_memcpy(temp + ft_strlen(s1), s2, ft_strlen(s2));
         if (s1)
