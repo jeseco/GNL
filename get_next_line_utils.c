@@ -1,5 +1,16 @@
 #include "get_next_line.h"
 
+size_t  ft_strlen(const char *s)
+{
+        int             len;
+
+        len = 0;
+        if (s)
+                while (*s++)
+                        len++;
+        return (len);
+}
+
 char    *ft_strdup(const char *s1)
 {
         char    *ptr;
@@ -10,6 +21,22 @@ char    *ft_strdup(const char *s1)
         if (ptr == NULL)
                 return (NULL);
         return ((char *) ft_memcpy(ptr, s1, len));
+}
+
+void    *ft_memcpy(void *dst, const void *src, size_t n)
+{
+        char            *dstc;
+        const char      *srccc;
+
+        if ((dst == src) || n == 0)
+                return (dst);
+        if (!dst && !src)
+                return (0);
+        dstc = (char *)dst;
+        srccc = (const char *)src;
+        while (n--)
+                dstc[n] = srccc[n];
+        return (dst);
 }
 
 void    *ft_memmove(void *dest, const void *src, size_t n)
@@ -36,32 +63,6 @@ void    *ft_memmove(void *dest, const void *src, size_t n)
         return (dest);
 }
 
-void    *ft_memcpy(void *dst, const void *src, size_t n)
-{
-        char            *dstc;
-        const char      *srccc;
-
-        if ((dst == src) || n == 0)
-                return (dst);
-        if (!dst && !src)
-                return (0);
-        dstc = (char *)dst;
-        srccc = (const char *)src;
-        while (n--)
-                dstc[n] = srccc[n];
-        return (dst);
-}
-
-size_t  ft_strlen(const char *s)
-{
-        int             len;
-
-        len = 0;
-        while (*s++)
-                len++;
-        return (len);
-}
-
 char    *ft_strjoin(char *s1, char *s2)
 {
         size_t  s1_len;
@@ -69,10 +70,6 @@ char    *ft_strjoin(char *s1, char *s2)
         size_t  stot_len;
         char    *rtn;
 
-        if (!s1 && !s2)
-                return (ft_strdup(""));
-        if (s1 && !s2)
-                return (ft_strdup(s1));
         if (!s1 && s2)
                 return (ft_strdup(s2));
         s1_len = ft_strlen((char *)s1);
