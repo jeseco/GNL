@@ -70,8 +70,14 @@ char    *ft_strjoin(char *s1, char *s2)
         size_t  stot_len;
         char    *rtn;
 
-        if (!s1 && s2)
-                return (ft_strdup(s2));
+        if (!s1)
+        {
+                s1_len = ft_strlen(s2);
+                s1 = malloc(sizeof(char *) * s1_len);
+                while (s1_len--)
+                        s1[s1_len] = s2[s1_len];
+                return (s1);
+        }
         s1_len = ft_strlen((char *)s1);
         s2_len = ft_strlen(s2);
         stot_len = s1_len + s2_len + 1;
