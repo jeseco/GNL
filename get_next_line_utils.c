@@ -63,23 +63,18 @@ void    *ft_memmove(void *dest, const void *src, size_t n)
         return (dest);
 }
 
-char    *ft_strjoin(char *s1, char *s2)
+void    ft_strscat(char *s1, char *s2)
 {
-        size_t  s1_len;
-        size_t  s2_len;
-        size_t  stot_len;
-        char    *rtn;
+        char    *temp;
+        int     rtn_size;
 
-        if (!s1 && s2)
-                return (ft_strdup(s2));
-        s1_len = ft_strlen((char *)s1);
-        s2_len = ft_strlen(s2);
-        stot_len = s1_len + s2_len + 1;
-        rtn = malloc(sizeof(char) * stot_len);
-        if (!rtn)
-                return (0);
-        ft_memmove(rtn, s1, s1_len);
-        ft_memmove(rtn + s1_len, s2, s2_len);
-        rtn[stot_len - 1] = '\0';
-        return (rtn);
+        rtn_size = ft_strlen(s1) + ft_strlen(s2);
+        temp = malloc(sizeof(char *) * rtn_size);
+        ft_memcpy(temp, s1, ft_strlen(s1));
+        ft_memcpy(temp + ft_strlen(s1), s2, ft_strlen(s2));
+        if (s1)
+                free(s1);
+        s1 = malloc(sizeof(char *) * rtn_size);
+        ft_memcpy(s1, temp, rtn_size);
+        free(temp);
 }

@@ -64,7 +64,7 @@ char    *get_save(int fd, char *save)
             return (NULL);
         }
         buffer[bytes] = '\0';
-        save = ft_strjoin(save, buffer);
+        ft_strscat(save, buffer);
     }
     free (buffer);
     return (save);
