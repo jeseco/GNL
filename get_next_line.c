@@ -74,14 +74,13 @@ char    *get_next_line(int fd)
 { 
     char        *line;
     static char *save;
-    int         nline_len;
 
     if (!fd || fd < 3)
         return (NULL);
     if (!save)
         save = get_save(fd, save);
+    line = NULL;
     line = get_line(save);
-    nline_len = ft_strlen(line);
-    save = clean_save(save, nline_len);
+    save = clean_save(save, ft_strlen(line));
     return (line);
 }
