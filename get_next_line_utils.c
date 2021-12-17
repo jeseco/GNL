@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 
-size_t  ft_strlen(const char *s)
+size_t  ft_strlen(char *s)
 {
         int             len;
 
@@ -11,59 +11,54 @@ size_t  ft_strlen(const char *s)
         return (len);
 }
 
-char    *ft_strdup(const char *s1)
+void    clean_alloc(char *s, int size)
 {
-        char    *ptr;
-        size_t  len;
+        int i;
 
-        len = ft_strlen(s1) + 1;
-        ptr = malloc(len);
-        if (ptr == NULL)
-                return (NULL);
-        return ((char *) ft_memcpy(ptr, s1, len));
-}
-
-void    *ft_memcpy(void *dst, const void *src, size_t n)
-{
-        char            *dstc;
-        const char      *srccc;
-
-        if ((dst == src) || n == 0)
-                return (dst);
-        if (!dst && !src)
-                return (0);
-        dstc = (char *)dst;
-        srccc = (const char *)src;
-        while (n--)
-                dstc[n] = srccc[n];
-        return (dst);
-}
-
-void    *ft_memmove(void *dest, const void *src, size_t n)
-{
-        char            *pt_dest;
-        const char      *pt_src;
-        char            *last_dest;
-        const char      *last_src;
-
-        last_dest = dest + (n - 1);
-        last_src = src + (n - 1);
-        pt_dest = dest;
-        pt_src = src;
-        if (!dest && !src)
-                return (0);
-        if (pt_dest < pt_src)
-                while (n--)
-                        *pt_dest++ = *pt_src++;
-        else
+        i = 0;
+        if (s)
+                free (s);
+        s = malloc(sizeof(char *) * size);
+        while (s[i])
         {
-                while (n--)
-                        *last_dest-- = *last_src--;
+                *(s +i) = '\0';
+                i++;
         }
-        return (dest);
 }
 
-void    ft_strscat(char *s1, char *s2)
+void    ft_memmove(char *dest, char*src, int size)
 {
+        int i;
 
+        i = 0;
+        while (i <= size)
+        {
+                dest[i] = src[i];
+                i++;
+        }
+}
+
+char    *ft_strscat(char *s1, char *s2)
+{
+        int     rtn_size;
+        char    *temp;
+       
+        if (!s1)
+        {
+                s1 = malloc(sizeof(char *) * ft_strlen(s2));
+                ft_memmove(s1, s2, BUFFER_SIZE + 1);
+                return (s1);
+        }
+        rtn_size = ft_strlen(s1) + ft_strlen(s2) + 1;
+        temp = NULL;
+        temp = malloc(sizeof(char *) * rtn_size);
+        ft_memmove(temp, s1, ft_strlen(s1));
+        ft_memmove(temp + ft_strlen(s1), s2, ft_strlen(s2));
+        temp[rtn_size] = '\0';
+        free (s1);
+        s1 = malloc(sizeof(char *) * rtn_size);
+        ft_memmove(s1, temp, rtn_size);
+        s1[rtn_size] = '\0';
+        free (temp);
+        return (s1);
 }
