@@ -13,19 +13,20 @@ size_t  ft_strlen(char *s)
         return (len);
 }
 
-void    clean_alloc(char *s, int size)
+char    *clean_alloc(char *s, int size)
 {
         int i;
 
         i = 0;
         if (s)
                 free (s);
-        s = malloc(sizeof(char *) * size);
-        while (s[i])
+        s = malloc(sizeof(char *) * size + 1);
+        while (i <= size + 1)
         {
                 *(s +i) = '\0';
                 i++;
         }
+        return (s);
 }
 
 void    ft_memmove(char *dest, char*src, int size)
@@ -47,8 +48,10 @@ char    *ft_strscat(char *s1, char *s2)
        
         if (!s1)
         {
-                s1 = malloc(sizeof(char *) * ft_strlen(s2));
-                ft_memmove(s1, s2, BUFFER_SIZE + 1);
+                rtn_size = ft_strlen(s2) + 1;
+                // s1 = clean_alloc(s1, rtn_size);
+                s1 = malloc(sizeof(char *) * rtn_size);
+                ft_memmove(s1, s2, rtn_size);
                 return (s1);
         }
         rtn_size = ft_strlen(s1) + ft_strlen(s2) + 1;
