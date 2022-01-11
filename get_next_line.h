@@ -6,7 +6,8 @@
 # include <unistd.h>
 
 char    *get_next_line(int fd);
-char    *ft_strscat(char *s1, char *s2);
+char    *ft_strchr(char *s, char c);
+char    *ft_strcat(char *s1, char *s2);
 size_t  ft_strlen(char *s);
 void    ft_memmove(char *dest, char*src, int size);
 char    *clean_alloc(char *s, int size);

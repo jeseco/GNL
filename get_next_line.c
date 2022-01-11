@@ -1,95 +1,34 @@
 #include "get_next_line.h"
 
-char    *clean_save(char *save, int i)
+char    *get_save(char *save, int fd)
 {
-    char    *temp;
-    int     new_save_len;
-
-    if (!save)
-        return (NULL);
-    if (*(save + i) == '\0')
-    {
-        free (save);
-        save = NULL;
-        return (save);
-    }
-    new_save_len = ft_strlen(save) - i;
-    temp = malloc(sizeof(char *) * new_save_len + 1);
-    ft_memmove(temp, save + i, new_save_len);
-    save = clean_alloc(save, new_save_len + 1);
-    ft_memmove(save, temp, new_save_len);
-    save[new_save_len] = '\0';
-    free (temp);
-    return (save);
-}
-
-char    *get_line(char *save)
-{
-    int     nl_size;
-    char    *next_line;
-
-    nl_size = 0;
-    if (!save)
-        return (NULL);
-    while (save[nl_size] != '\0' && save[nl_size] != '\n')
-        nl_size++;
-    if (save[nl_size] == '\n' && nl_size == 0)
-    {
-        nl_size = 2;
-        next_line = NULL;
-        next_line = clean_alloc(next_line, nl_size);
-        ft_memmove(next_line, "\n", 1);
-        return (next_line);
-    }
-    next_line = malloc(sizeof(char *) * nl_size);
-    ft_memmove(next_line, save, nl_size);
-    return (next_line);
-}
-
-char    *get_save(int fd, char *save)
-{
-    int     bytes;
     char    *buffer;
+    int     bytes;
 
-    buffer = malloc(sizeof(char *) * BUFFER_SIZE + 1);
     bytes = 1;
-    while (bytes > 0)
+    while (bytes > 0 && !(ft_strcat(save, '\n')))
     {
         bytes = read(fd, buffer, BUFFER_SIZE);
-        if (bytes == -1)
+        if (bytes < 1)
         {
-            free (buffer);
-            return (NULL);
-        }
-        if (bytes == 0)
-        {
-            free (buffer);
-            return (save);
+            free(buffer);
+            return (ft_strchr(save, '\n'));
         }
         buffer[bytes] = '\0';
-        save = ft_strscat(save, buffer);
+        ft_strcat(save, buffer);
+        
     }
-    free (buffer);
-    return (save);
+    return (ft_strcat(save, '\n'));
 }
 
 char    *get_next_line(int fd)
-{ 
-    char        *line;
+{
     static char *save;
-    int         nl_len;
+    char        *sep;
+    char        line;
 
-    line = NULL;
-    nl_len = 0;
     if (!fd || fd < 3)
         return (NULL);
-    if (!save)
-        save = get_save(fd, save);
-    if (save)
-    {
-        line = get_line(save);
-        nl_len = ft_strlen(line);
-        save = clean_save(save, nl_len);
-    }
-    return (line);
+    if (!save || save == NULL)
+        sep = get_save(save, fd);
 }
