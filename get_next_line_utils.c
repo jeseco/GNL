@@ -2,62 +2,65 @@
 
 char    *ft_strchr(char *s, char c)
 {
-        char    *pt_c;
+        int     i;
 
-        while (*s++)
+        i = 0;
+        if (s)
         {
-                if (*s == c)
-                        return (pt_c = s);
+                while (s[i])
+                {
+                        if (s[i] == c)
+                                return (s + i);
+                        i++;
+                }
         }
         return (NULL);
 }
 
-size_t  ft_strlen(const char *s)
+size_t  ft_strlen(char *s)
 {
         int             len;
 
         len = 0;
-        while (*s++)
-                len++;
+        if (s && s != NULL)
+                while (*s++)
+                        len++;
         return (len);
 }
 
-void    clean_alloc(char *s, int len)
-{
-        if(!s)
-                s = malloc(sizeof(char *) * len);
-        while(*s++)
-                *s + "\0";
-}
-
-void    ft_memmove(char *s1, char *s2, int len)
+void    ft_memmove(char *dest, char *src, int len)
 {
         int i;
 
         i = 0;
         while (i < len)
         {
-                *s1 = *s2;
+                dest[i] = src[i];
                 i++;
         }
 }
 
-void    *ft_strcat(char *dest, char *src)
+char   *ft_strcat(char *dest, char *src)
 {
-        int     n_len;
         char    *temp;
+        int     n_len;
 
         if (!dest)
         {
                 dest = malloc(sizeof(char *) * ft_strlen(src));
-                ft_memmove(src, dest, ft_strlen(src));
-                return ;
+                ft_memmove(dest, src, ft_strlen(src));
+                dest[ft_strlen(src)] = '\0';
+                return (dest);
         }
-        n_len = ft_strlen(src) + ft_strlen(dest) + 1;
-        temp = malloc(sizeof(char *) * n_len));
+        n_len = ft_strlen(dest) + ft_strlen(src);
+        temp = malloc(sizeof(char *) * n_len + 1);
         ft_memmove(temp, dest, ft_strlen(dest));
-        ft_memmove(temp + ft_strlen(dest), scr, ft_strlen(src));
-        clean_alloc(dest, n_len);
+        ft_memmove(temp + ft_strlen(dest), src, ft_strlen(src));
+        temp[n_len] = '\0';
+        free (dest);
+        dest = malloc(sizeof(char *) * n_len + 1);
         ft_memmove(dest, temp, n_len);
+        dest[n_len] = '\0';
         free (temp);
+        return (dest);
 }
