@@ -22,7 +22,7 @@ size_t  ft_strlen(char *s)
         int             len;
 
         len = 0;
-        if (s && s != NULL)
+        if (s)
                 while (*s++)
                         len++;
         return (len);
@@ -50,18 +50,15 @@ char   *ft_strcat(char *dest, char *src)
         {
                 dest = malloc(sizeof(char *) * ft_strlen(src));
                 ft_memmove(dest, src, ft_strlen(src));
-                dest[ft_strlen(src)] = '\0';
                 return (dest);
         }
         n_len = ft_strlen(dest) + ft_strlen(src);
         temp = malloc(sizeof(char *) * n_len + 1);
         ft_memmove(temp, dest, ft_strlen(dest));
         ft_memmove(temp + ft_strlen(dest), src, ft_strlen(src));
-        temp[n_len] = '\0';
         free (dest);
         dest = malloc(sizeof(char *) * n_len + 1);
         ft_memmove(dest, temp, n_len);
-        dest[n_len] = '\0';
         free (temp);
         return (dest);
 }

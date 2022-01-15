@@ -6,12 +6,10 @@ char    *clean_save(char *save, char *nl)
 
     temp = malloc(sizeof(char *) * ft_strlen(nl) + 1);
     ft_memmove(temp, nl, ft_strlen(nl));
-    temp[ft_strlen(nl)] = '\0';
     free (save);
     save = NULL;
     save = malloc(sizeof(char *) *ft_strlen(temp) + 1);
     ft_memmove(save, temp, ft_strlen(temp));
-    save[ft_strlen(temp)] = '\0';
     free (temp);
     return (save);
 }
@@ -24,7 +22,6 @@ char    *cut_line(char *save, char *nl)
     n_len = ft_strlen(save) - ft_strlen(nl);
     line = malloc(sizeof(char *) * n_len + 1);
     ft_memmove(line, save, n_len);
-    line[n_len] = '\0';
     return (line);
 }
 
@@ -57,7 +54,7 @@ char    *get_next_line(int fd)
     char            *line;
 
     nl = NULL;
-    if (!fd || fd < 3)
+    if (!fd)
         return (NULL);
     save = get_save(save, fd);
     nl = ft_strchr(save, '\n');
