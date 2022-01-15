@@ -38,6 +38,7 @@ void    ft_memmove(char *dest, char *src, int len)
                 dest[i] = src[i];
                 i++;
         }
+        dest[len] = '\0';
 }
 
 char   *ft_strcat(char *dest, char *src)
